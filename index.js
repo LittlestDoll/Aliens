@@ -23,8 +23,8 @@ function renderTable() {
 
 function handleSearchButtonClick() {
     var filterDate = $dateInput.value.toString();
-    filterDate = datetimeData.filter(function(date) {
-        var dataDate = date.datetime.toString();
+    filteredDate = datetimeData.filter(function(date) {
+        var dataDate = data.datetime.toString();
         return dataDate === filterDate;
     });
     renderTable();
