@@ -4,7 +4,7 @@ var $searchBtn = document.querySelector("#search");
 
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
-var filteredDate = datetimeData;
+var filteredDate = dataSet;
 
 function renderTable() {
   $tbody.innerHTML = "";
@@ -22,9 +22,9 @@ function renderTable() {
 }
 
 function handleSearchButtonClick() {
-    var filterDate = $dateInput.value.toString();
+    var filterDate = $dateInput.value.replace(/(^|\/)0+/g, "$1");
     filteredDate = datetimeData.filter(function(date) {
-        var dataDate = data.datetime.toString();
+        var dataDate = data.datetime.replace(/(^|\/)0+/g, "$1");
         return dataDate === filterDate;
     });
     renderTable();
