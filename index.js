@@ -1,34 +1,28 @@
 var $tbody = document.querySelector("tbody");
-var $dateInput = document.querySelector("#datetime");
 var $searchBtn = document.querySelector("#search");
 
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
-var filteredDate = dataSet;
-
-function renderTable() {
+function renderTable(filterDate) {
   $tbody.innerHTML = "";
-  for (var i = 0; i < filteredDate.length; i++) {
-    var date = filteredDate[i];
-    var fields = Object.keys(date);
-    // Create a new row in the tbody, set the index to be i + startingIndex
-    var $row = $tbody.insertRow(i);
+  for (var i = 0; i < dataSet.length; i++) {
+    var sighting = dataSet[i];
+    if (sighting.datetime != filterDate) {
+      continue;
+    }
+    var fields = Object.keys(sighting);
+    // Create a new row in the tbody, index -1 == append new row
+    var $row = $tbody.insertRow(-1);
     for (var j = 0; j < fields.length; j++) {
       var field = fields[j];
       var $cell = $row.insertCell(j);
-      $cell.innerText = date[field];
+      $cell.innerText = sighting[field];
     }
   }
 }
 
 function handleSearchButtonClick() {
-    var filterDate = $dateInput.value.replace(/(^|\/)0+/g, "$1");
-    filteredDate = datetimeData.filter(function(date) {
-        var dataDate = data.datetime.replace(/(^|\/)0+/g, "$1");
-        return dataDate === filterDate;
-    });
-    renderTable();
+  var $dateInput = document.querySelector("#date");
+    var filterDate = $dateInput.value.replace(/(^|\/)0+/g, "$1").toString();
+    renderTable(filterDate);
 }
-  
-  // Render the table for the first time on page load
-  renderTable();
